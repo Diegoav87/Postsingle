@@ -1,21 +1,20 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Navigation from "./Navbar/Navbar.js";
+import { PostProvider } from "../context/posts";
+import PostList from "./PostList/PostList.js";
 
 const Home = () => {
   return (
-    <Container>
-      <h1>Home</h1>
-      <p>
-        <Link to="/login">Login</Link>
-      </p>
-      <p>
-        <Link to="/signup">Sign Up</Link>
-      </p>
-      <p>
-        <Link to="/dashboard">Dashboard</Link>
-      </p>
-    </Container>
+    <PostProvider>
+      <div>
+        <Navigation />
+        <Container>
+          <PostList />
+        </Container>
+      </div>
+    </PostProvider>
   );
 };
 
