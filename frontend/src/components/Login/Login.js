@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import {
   Container,
   Button,
@@ -9,10 +10,22 @@ import {
   FormControl,
 } from "react-bootstrap";
 import Navigation from "../Navbar/Navbar";
+import { AuthContext } from "../../context/auth";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const {
+    tokenParent,
+    isAuthenticatedParent,
+    loadingParent,
+    userParent,
+  } = useContext(AuthContext);
+  const [token, setToken] = tokenParent;
+  const [isAuthenticated, setIsAuthenticated] = isAuthenticatedParent;
+  const [loading, setLoading] = loadingParent;
+  const [user, setUser] = userParent;
 
   const onUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -23,8 +36,44 @@ const Login = () => {
   };
 
   const onLoginClick = () => {
-    console.log(username);
+    loginUser();
   };
+
+  const loginUser = () => {
+    fetch("http://127.0.0.1:8000/accounts/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          localStorage.removeItem("token");
+          setToken(null);
+          setIsAuthenticated(false);
+          setLoading(false);
+          setUser(null);
+          return undefined;
+        }
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          console.log("success");
+          setToken(data["token"]);
+          setIsAuthenticated(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div>

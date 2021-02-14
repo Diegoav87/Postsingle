@@ -1,14 +1,24 @@
 import axios from "axios";
-import { GET_POSTS } from "./types";
+import { ADD_POST, GET_ERRORS } from "./types";
 
-export const getPosts = () => (dispatch) => {
+//Add lead
+export const addPost = (post) => (dispatch) => {
   axios
-    .get("http://127.0.0.1:8000/posts/")
+    .post("http://127.0.0.1:8000/posts/post-create/", post)
     .then((res) => {
       dispatch({
-        type: GET_POSTS,
+        type: ADD_POST,
         payload: res.data,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      const errors = {
+        msg: err.response.data,
+        status: err.response.status,
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors,
+      });
+    });
 };

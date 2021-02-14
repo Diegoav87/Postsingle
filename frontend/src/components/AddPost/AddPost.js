@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { addPost } from "../../actions/posts";
 
-const AddPost = () => {
+const AddPost = (props) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -15,18 +18,19 @@ const AddPost = () => {
 
   const addClick = (e) => {
     e.preventDefault();
-    console.log(title, body);
-    fetch("http://127.0.0.1:8000/posts/post-create/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: title, body: body }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    // fetch("http://127.0.0.1:8000/posts/post-create/", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ title: title, body: body }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
+    const post = { title, body };
+    props.addPost(post);
   };
 
   return (
@@ -49,4 +53,8 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+AddPost.propTypes = {
+  addPost: PropTypes.func.isRequired,
+};
+
+export default connect(null, { addPost })(AddPost);

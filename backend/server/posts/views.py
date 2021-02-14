@@ -26,9 +26,12 @@ def get_post(request, pk):
 def create_post(request):
     serializer = PostSerializer(data=request.data)
 
-    if serializer.is_valid():
-        serializer.save(user=request.user)
-    return Response(serializer.data)
+    if request.user.is_anonymous == False:
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"user": "There is no user in the request"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
