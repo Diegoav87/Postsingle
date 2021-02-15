@@ -2,50 +2,16 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { AuthContext } from "../../context/auth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { logout } from "../../actions/auth";
 
-const Navigation = () => {
-  const {
-    tokenParent,
-    isAuthenticatedParent,
-    loadingParent,
-    userParent,
-  } = useContext(AuthContext);
-  const [token, setToken] = tokenParent;
-  const [loading, setLoading] = loadingParent;
-  const [isAuthenticated, setIsAuthenticated] = isAuthenticatedParent;
-  const [user, setUser] = userParent;
-
+const Navigation = (props) => {
   const logoutUser = () => {
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    if (token) {
-      config.headers["Authorization"] = `Token ${token}`;
-    }
-
-    fetch("http://127.0.0.1:8000/accounts/api/auth/logout", config)
-      .then((res) => {
-        if (res.ok) {
-          localStorage.removeItem("token");
-          setToken(null);
-          setIsAuthenticated(false);
-          setLoading(false);
-          setUser(null);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    props.logout();
   };
+
+  const { isAuthenticated, user } = props.auth;
 
   const userNav = (
     <Navbar bg="dark" variant="dark">
@@ -69,9 +35,6 @@ const Navigation = () => {
         <Navbar.Brand href="#home">Postsingle</Navbar.Brand>
       </LinkContainer>
       <Nav className="mr-auto">
-        <LinkContainer to="/dashboard">
-          <Nav.Link href="#home">Dashboard</Nav.Link>
-        </LinkContainer>
         <LinkContainer to="/login">
           <Nav.Link href="#features">Log In</Nav.Link>
         </LinkContainer>
@@ -85,4 +48,13 @@ const Navigation = () => {
   return <div>{isAuthenticated ? userNav : guestNav}</div>;
 };
 
-export default Navigation;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+Navigation.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, { logout })(Navigation);

@@ -16,7 +16,7 @@ def Register(request):
         user = serializer.save()
         return Response({"user": UserSerializer(user).data, "token": AuthToken.objects.create(user)[1]}, status=status.HTTP_201_CREATED)
     else:
-        return Response({'Bad Request': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -26,7 +26,7 @@ def login_user(request):
         user = serializer.validated_data
         return Response({"user": UserSerializer(user).data, "token": AuthToken.objects.create(user)[1]}, status=status.HTTP_200_OK)
     else:
-        return Response({'Bad Request': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

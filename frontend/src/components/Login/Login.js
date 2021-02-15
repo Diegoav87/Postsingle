@@ -10,22 +10,14 @@ import {
   FormControl,
 } from "react-bootstrap";
 import Navigation from "../Navbar/Navbar";
-import { AuthContext } from "../../context/auth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
+import Alerts from "../Alerts/Alerts";
 
-const Login = () => {
+const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const {
-    tokenParent,
-    isAuthenticatedParent,
-    loadingParent,
-    userParent,
-  } = useContext(AuthContext);
-  const [token, setToken] = tokenParent;
-  const [isAuthenticated, setIsAuthenticated] = isAuthenticatedParent;
-  const [loading, setLoading] = loadingParent;
-  const [user, setUser] = userParent;
 
   const onUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -39,39 +31,11 @@ const Login = () => {
     loginUser();
   };
 
-  const loginUser = () => {
-    fetch("http://127.0.0.1:8000/accounts/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: username, password: password }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          localStorage.removeItem("token");
-          setToken(null);
-          setIsAuthenticated(false);
-          setLoading(false);
-          setUser(null);
-          return undefined;
-        }
-      })
-      .then((data) => {
-        if (data !== undefined) {
-          console.log("success");
-          setToken(data["token"]);
-          setIsAuthenticated(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const loginUser = (e) => {
+    props.login(username, password);
   };
 
-  if (isAuthenticated) {
+  if (props.isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
 
@@ -82,6 +46,7 @@ const Login = () => {
         <Row>
           <Col md="4">
             <h1>Login</h1>
+            <Alerts />
             <Form>
               <Form.Group controlId="usernameId">
                 <Form.Label>User name</Form.Label>
@@ -107,7 +72,7 @@ const Login = () => {
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
             </Form>
-            <Button color="primary" onClick={onLoginClick}>
+            <Button color="primary" type="submit" onClick={onLoginClick}>
               Login
             </Button>
             <p className="mt-2">
@@ -120,4 +85,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+export default connect(mapStateToProps, { login })(Login);
