@@ -52,9 +52,10 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-Navigation.propTypes = {
-  auth: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout()),
+  };
 };
 
-export default connect(mapStateToProps, { logout })(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

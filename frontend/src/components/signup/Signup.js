@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
   Container,
   Button,
@@ -9,8 +9,11 @@ import {
   FormControl,
 } from "react-bootstrap";
 import Navigation from "../Navbar/Navbar.js";
+import { connect } from "react-redux";
+import { register } from "../../actions/auth";
+import Alerts from "../Alerts/Alerts";
 
-const Signup = () => {
+const Signup = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,8 +36,12 @@ const Signup = () => {
   };
 
   const onSignupClick = () => {
-    console.log(username + " " + email);
+    props.register(username, email, password, password2);
   };
+
+  if (props.isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div>
@@ -43,6 +50,7 @@ const Signup = () => {
         <Row>
           <Col md="4">
             <h1>Sign up</h1>
+            <Alerts />
             <Form>
               <Form.Group controlId="usernameId">
                 <Form.Label>User name</Form.Label>
@@ -105,4 +113,17 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.isAuthenticated,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (username, email, password, password2) =>
+      dispatch(register(username, email, password, password2)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

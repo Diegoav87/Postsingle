@@ -85,13 +85,16 @@ const Login = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (username, password) => dispatch(login(username, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
