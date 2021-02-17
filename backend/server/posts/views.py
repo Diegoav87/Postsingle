@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework import permissions
 
 # Create your views here.
 
@@ -26,12 +28,10 @@ def get_post(request, pk):
 def create_post(request):
     serializer = PostSerializer(data=request.data)
 
-    if request.user.is_anonymous == False:
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({"user": "There is no user in the request"}, status=status.HTTP_400_BAD_REQUEST)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -50,3 +50,11 @@ def delete_post(request, pk):
     post.delete()
 
     return Response('Post Deleted')
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def user_posts(request):
+    posts = Post.objects.filter(user=request.user).order_by('-created_at')
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data)

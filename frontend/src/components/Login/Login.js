@@ -11,7 +11,6 @@ import {
 } from "react-bootstrap";
 import Navigation from "../Navbar/Navbar";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 import Alerts from "../Alerts/Alerts";
 

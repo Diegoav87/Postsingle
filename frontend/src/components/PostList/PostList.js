@@ -1,24 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./PostList.css";
-import { PostContext } from "../../context/posts";
 import Post from "./Post/Post";
+import { connect } from "react-redux";
+import { getPosts } from "../../actions/posts";
 
 const PostList = (props) => {
-  const [posts, setPosts] = useContext(PostContext);
-
-  const getPosts = () => {
-    fetch("http://127.0.0.1:8000/posts/")
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
-      });
-  };
-
   useEffect(() => {
-    getPosts();
+    props.getPosts();
   }, []);
 
-  const postList = posts.map((post) => {
+  const postList = props.posts.map((post) => {
     return (
       <Post
         title={post.title}
@@ -32,12 +23,16 @@ const PostList = (props) => {
   return <div className="list-grid">{postList}</div>;
 };
 
-// const mapStateToProps = (state) => ({
-//   posts: state.posts.posts,
-// });
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPosts: () => dispatch(getPosts()),
+  };
+};
 
-// PostList.propTypes = {
-//   posts: PropTypes.array.isRequired,
-// };
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts.posts,
+  };
+};
 
-export default PostList;
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

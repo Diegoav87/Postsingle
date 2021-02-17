@@ -18,17 +18,6 @@ const AddPost = (props) => {
 
   const addClick = (e) => {
     e.preventDefault();
-    // fetch("http://127.0.0.1:8000/posts/post-create/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ title: title, body: body }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
     const post = { title, body };
     props.addPost(post);
   };
