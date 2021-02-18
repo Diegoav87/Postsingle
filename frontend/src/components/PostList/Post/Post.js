@@ -1,13 +1,15 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import dateFormat from "dateformat";
+import { Link } from "react-router-dom";
 
 const Post = (props) => {
   return (
     <Card>
-      <Card.Img variant="top" src="'../../../assets/images/descarga.svg" />
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
+        <Link to={`/post/${props.id}`}>
+          <Card.Title>{props.title}</Card.Title>
+        </Link>
         <Card.Text>{props.body}</Card.Text>
       </Card.Body>
       <Card.Footer>

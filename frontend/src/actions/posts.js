@@ -6,6 +6,7 @@ import {
   GET_POSTS,
   DELETE_POST,
   USER_POSTS,
+  GET_POST,
 } from "./types";
 import { createMessage } from "./messages";
 import { tokenConfig } from "./auth";
@@ -16,6 +17,27 @@ export const getPosts = () => (dispatch) => {
     .then((res) => {
       dispatch({
         type: GET_POSTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      const errors = {
+        msg: err.response.data,
+        status: err.response.status,
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors,
+      });
+    });
+};
+
+export const getPost = (id) => (dispatch) => {
+  axios
+    .get(`http://127.0.0.1:8000/posts/post-get/${id}/`)
+    .then((res) => {
+      dispatch({
+        type: GET_POST,
         payload: res.data,
       });
     })

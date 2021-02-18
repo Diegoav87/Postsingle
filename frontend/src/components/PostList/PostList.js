@@ -16,6 +16,7 @@ const PostList = (props) => {
         body={post.body}
         created={post.created_at}
         key={post.id}
+        id={post.id}
       />
     );
   });

@@ -7,6 +7,7 @@ from .serializers import PostSerializer, CommentSerializer
 from rest_framework.decorators import permission_classes
 from rest_framework import permissions
 
+
 # Create your views here.
 
 
@@ -25,6 +26,7 @@ def get_post(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
 def create_post(request):
     serializer = PostSerializer(data=request.data)
 
@@ -35,6 +37,7 @@ def create_post(request):
 
 
 @api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
 def update_post(request, pk):
     post = Post.objects.get(id=pk)
     serializer = PostSerializer(data=request.data)
@@ -45,6 +48,7 @@ def update_post(request, pk):
 
 
 @api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticated])
 def delete_post(request, pk):
     post = Post.objects.get(id=pk)
     post.delete()

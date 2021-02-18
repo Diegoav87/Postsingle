@@ -11,6 +11,7 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { loadUser } from "./actions/auth";
 import { useEffect } from "react";
+import PostPage from "./components/PostPage/PostPage";
 
 // Alert options
 const alertOptions = {
@@ -32,6 +33,7 @@ function App() {
               <Route path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <Route exact path="/" component={Home} />
+              <Route path="/post/:id" component={PostPage} />
             </Switch>
           </Router>
         </AlertProvider>
