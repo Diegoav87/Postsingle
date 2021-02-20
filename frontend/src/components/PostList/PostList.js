@@ -16,7 +16,9 @@ const PostList = (props) => {
         body={post.body}
         created={post.created_at}
         key={post.id}
+        postUser={post.user}
         id={post.id}
+        description={post.description}
       />
     );
   });

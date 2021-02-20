@@ -102,12 +102,13 @@ export const addPost = (post) => (dispatch, getState) => {
 
 export const updatePost = (id, post) => (dispatch, getState) => {
   axios
-    .patch(
-      `http://127.0.0.1:8000/posts/post-update/${id}`,
+    .post(
+      `http://127.0.0.1:8000/posts/post-update/${id}/`,
       post,
       tokenConfig(getState)
     )
     .then((res) => {
+      dispatch(createMessage({ postUpdated: "Post Updated" }));
       dispatch({
         type: UPDATE_POST,
         payload: res.data,

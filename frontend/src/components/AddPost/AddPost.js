@@ -6,6 +6,7 @@ import { addPost } from "../../actions/posts";
 
 const AddPost = (props) => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
 
   const titleChange = (e) => {
@@ -16,9 +17,13 @@ const AddPost = (props) => {
     setBody(e.target.value);
   };
 
+  const desChange = (e) => {
+    setDescription(e.target.value);
+  };
+
   const addClick = (e) => {
     e.preventDefault();
-    const post = { title, body };
+    const post = { title, body, description };
     props.addPost(post);
   };
 
@@ -29,6 +34,10 @@ const AddPost = (props) => {
         <Form.Group>
           <Form.Label>Post Title</Form.Label>
           <Form.Control onChange={titleChange} type="text" />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Short Description</Form.Label>
+          <Form.Control onChange={desChange} type="text" />
         </Form.Group>
         <Form.Group>
           <Form.Label>Body</Form.Label>

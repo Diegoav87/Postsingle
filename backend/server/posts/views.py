@@ -40,7 +40,7 @@ def create_post(request):
 @permission_classes([permissions.IsAuthenticated])
 def update_post(request, pk):
     post = Post.objects.get(id=pk)
-    serializer = PostSerializer(data=request.data)
+    serializer = PostSerializer(instance=post, data=request.data)
 
     if serializer.is_valid():
         serializer.save()

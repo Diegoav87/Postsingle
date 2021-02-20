@@ -22,6 +22,7 @@ const Alerts = (props) => {
       }
       if (message) {
         if (message.postAdded) alert.success(message.postAdded);
+        if (message.postUpdated) alert.success(message.postUpdated);
       }
     } else {
       didMountRef.current = true;

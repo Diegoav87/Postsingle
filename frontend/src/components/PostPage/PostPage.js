@@ -1,32 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getPost } from "../../actions/posts";
 import { useParams } from "react-router-dom";
+import Navigation from "../Navbar/Navbar";
+import dateFormat from "dateformat";
 
 const PostPage = (props) => {
   const { id } = useParams();
-
-  useEffect(() => {
-    props.getPost(id);
-  }, []);
+  const post = props.posts.find((post) => {
+    if (post.id === parseInt(id)) {
+      return post;
+    }
+  });
 
   return (
     <div>
-      <h1>{props.post.title}</h1>
+      <Navigation />
+      <div className="container mt-4 mb-4">
+        <h1>{post.title}</h1>
+        <h6 className="text-muted">{post.description}</h6>
+        <p>
+          {post.user}{" "}
+          <span className="text-secondary">
+            {dateFormat(post.created_at, "mmmm dS, yyyy")}
+          </span>
+        </p>
+        <p>{post.body}</p>
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    post: state.posts.postDetail,
+    posts: state.posts.posts,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPost: (id) => dispatch(getPost(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps)(PostPage);

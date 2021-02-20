@@ -2,6 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Post = (props) => {
   return (
@@ -10,15 +11,32 @@ const Post = (props) => {
         <Link to={`/post/${props.id}`}>
           <Card.Title>{props.title}</Card.Title>
         </Link>
-        <Card.Text>{props.body}</Card.Text>
+        <Card.Text>{props.description}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">
-          {dateFormat(props.created, "mmmm dS, yyyy")}
-        </small>
+        <div className="d-flex justify-content-between">
+          <small className="text-muted">
+            {dateFormat(props.created, "mmmm dS, yyyy")}
+          </small>
+          {props.postUser === props.user ? (
+            <Link to={`/edit/${props.id}`}>
+              <i className="fas fa-edit" style={{ color: "grey" }}></i>
+            </Link>
+          ) : null}
+        </div>
       </Card.Footer>
     </Card>
   );
 };
 
-export default Post;
+const mapStateToProps = (state) => {
+  if (state.auth.isAuthenticated) {
+    return {
+      user: state.auth.user.username,
+    };
+  } else {
+    return {};
+  }
+};
+
+export default connect(mapStateToProps)(Post);

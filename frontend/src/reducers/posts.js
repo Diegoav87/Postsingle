@@ -9,7 +9,13 @@ import {
 const initialState = {
   posts: [],
   userPosts: [],
-  postDetail: {},
+  postDetail: {
+    id: "",
+    title: "",
+    body: "",
+    created_at: "",
+    user: "",
+  },
 };
 
 export default function (state = initialState, action) {

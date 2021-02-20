@@ -16,11 +16,13 @@ const UserPosts = (props) => {
         created={post.created_at}
         key={post.id}
         id={post.id}
+        description={post.description}
+        postUser={post.user}
       />
     );
   });
 
-  return <div className="list-grid">{postList}</div>;
+  return <div className="list-grid mb-4">{postList}</div>;
 };
 
 const mapStateToProps = (state) => {
