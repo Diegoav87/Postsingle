@@ -125,3 +125,28 @@ export const updatePost = (id, post) => (dispatch, getState) => {
       });
     });
 };
+
+export const deletePost = (id) => (dispatch, getState) => {
+  axios
+    .delete(
+      `http://127.0.0.1:8000/posts/post-delete/${id}/`,
+      tokenConfig(getState)
+    )
+    .then((res) => {
+      dispatch(createMessage({ postDeleted: "Post Deleted" }));
+      dispatch({
+        type: DELETE_POST,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      const errors = {
+        msg: err.response.data,
+        status: err.response.status,
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors,
+      });
+    });
+};

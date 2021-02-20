@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { addPost } from "../../actions/posts";
 
 const AddPost = (props) => {
@@ -51,8 +50,10 @@ const AddPost = (props) => {
   );
 };
 
-AddPost.propTypes = {
-  addPost: PropTypes.func.isRequired,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPost: (post) => dispatch(addPost(post)),
+  };
 };
 
-export default connect(null, { addPost })(AddPost);
+export default connect(null, mapDispatchToProps)(AddPost);

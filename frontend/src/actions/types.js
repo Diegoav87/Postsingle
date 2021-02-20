@@ -13,5 +13,5 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAIL = "REGISTER_FAIL";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
-export const USER_POSTS = "DELETE_POST";
+export const USER_POSTS = "USER_POST";
 export const GET_POST = "GET_POST";
