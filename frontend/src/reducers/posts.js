@@ -10,6 +10,7 @@ import {
 const initialState = {
   posts: [],
   userPosts: [],
+  postDetail: {},
 };
 
 export default function (state = initialState, action) {
@@ -28,35 +29,41 @@ export default function (state = initialState, action) {
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post.id !== action.payload),
-        userPosts: state.posts.filter((post) => post.id !== action.payload),
+        posts: state.posts.filter(
+          (post) => post.id !== parseInt(action.payload)
+        ),
+        userPosts: state.userPosts.filter(
+          (post) => post.id !== parseInt(action.payload)
+        ),
       };
     case UPDATE_POST:
+      const newPosts = state.posts.map((post) => {
+        if (post.id === parseInt(action.payload.id)) {
+          return { ...post, ...action.payload };
+        }
+        return post;
+      });
+      const newUserPosts = state.userPosts.map((post) => {
+        if (post.id === parseInt(action.payload.id)) {
+          return { ...post, ...action.payload };
+        }
+        return post;
+      });
       return {
         ...state,
-        posts: state.posts.map((post) => {
-          if (post.id === action.payload.id) {
-            return { ...post, ...action.payload };
-          }
-          return post;
-        }),
-        userPosts: state.posts.map((post) => {
-          if (post.id === action.payload.id) {
-            return { ...post, ...action.payload };
-          }
-          return post;
-        }),
+        posts: newPosts,
+        userPosts: newUserPosts,
       };
     case USER_POSTS:
       return {
         ...state,
         userPosts: action.payload,
       };
-    // case GET_POST:
-    //   return {
-    //     ...state,
-    //     postDetail: action.payload,
-    //   };
+    case GET_POST:
+      return {
+        ...state,
+        postDetail: action.payload,
+      };
     default:
       return state;
   }

@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Spinner } from "react-bootstrap";
 import { connect } from "react-redux";
-import { updatePost, deletePost } from "../../actions/posts";
+import { updatePost, deletePost, getPost } from "../../actions/posts";
 import Navigation from "../Navbar/Navbar";
 import { useParams } from "react-router-dom";
 import Alerts from "../Alerts/Alerts";
 import { useHistory } from "react-router-dom";
+import parse from "html-react-parser";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const EditPost = (props) => {
   const history = useHistory();
   const { id } = useParams();
-  const post = props.posts.find((post) => {
-    if (post.id === parseInt(id)) {
-      return post;
-    }
-  });
 
-  const [title, setTitle] = useState(post.title);
-  const [description, setDescription] = useState(post.description);
-  const [body, setBody] = useState(post.body);
+  const [title, setTitle] = useState(props.post.title);
+  const [description, setDescription] = useState(props.post.description);
+  const [body, setBody] = useState(props.post.body);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    console.log(1);
+    props.getPost(id);
+    if (props.post.title !== title) {
+      setTitle(props.post.title);
+      setDescription(props.post.description);
+      setBody(props.post.body);
+    }
+  }, [props.post.title]);
 
   const titleChange = (e) => {
     setTitle(e.target.value);
@@ -46,7 +54,7 @@ const EditPost = (props) => {
 
   const handleClose = () => setShow(false);
   const deletePostConfirm = () => {
-    props.deletePost(id);
+    props.deletePost(id, props.user);
     setShow(false);
     history.push("/dashboard");
   };
@@ -54,70 +62,80 @@ const EditPost = (props) => {
   return (
     <div>
       <Navigation />
-      <div className="mt-4 container">
-        <h1>Edit Post</h1>
-        <Alerts />
-        <Form>
-          <Form.Group>
-            <Form.Label>Post Title</Form.Label>
-            <Form.Control onChange={titleChange} type="text" value={title} />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Short Description</Form.Label>
-            <Form.Control
-              onChange={desChange}
-              type="text"
-              value={description}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Body</Form.Label>
-            <Form.Control
-              onChange={bodyChange}
-              as="textarea"
-              rows={3}
-              value={body}
-            />
-          </Form.Group>
-          <Button onClick={updateClick} variant="primary" type="submit">
-            Edit
-          </Button>
-          <Button className="ml-2" variant="danger" onClick={deleteClick}>
-            Delete
-          </Button>
+      {title === undefined ? (
+        <div className="centered">
+          <Spinner animation="border" variant="primary" />
+        </div>
+      ) : (
+        <div className="mt-4 container">
+          <h1>Edit Post</h1>
+          <Alerts />
+          <Form>
+            <Form.Group>
+              <Form.Label>Post Title</Form.Label>
+              <Form.Control onChange={titleChange} type="text" value={title} />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Short Description</Form.Label>
+              <Form.Control
+                onChange={desChange}
+                type="text"
+                value={description}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Body</Form.Label>
+              <CKEditor
+                data={body}
+                editor={ClassicEditor}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setBody(data);
+                }}
+              />
+            </Form.Group>
+            <Button onClick={updateClick} variant="primary" type="submit">
+              Edit
+            </Button>
+            <Button className="ml-2" variant="danger" onClick={deleteClick}>
+              Delete
+            </Button>
 
-          <Modal animation={false} show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Delete Post</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Deleting a post will permanently remove it from the database.
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="success" onClick={handleClose}>
-                Keep Post
-              </Button>
-              <Button variant="danger" onClick={deletePostConfirm}>
-                Delete Post
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Form>
-      </div>
+            <Modal animation={false} show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Delete Post</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Deleting a post will permanently remove it from the database.
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="success" onClick={handleClose}>
+                  Keep Post
+                </Button>
+                <Button variant="danger" onClick={deletePostConfirm}>
+                  Delete Post
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </Form>
+        </div>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts.posts,
+    post: state.posts.postDetail,
+    user: state.auth.user.username,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updatePost: (id, post) => dispatch(updatePost(id, post)),
-    deletePost: (id) => dispatch(deletePost(id)),
+    deletePost: (id, user) => dispatch(deletePost(id, user)),
+    getPost: (id) => dispatch(getPost(id)),
   };
 };
 

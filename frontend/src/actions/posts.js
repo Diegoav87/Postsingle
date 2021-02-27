@@ -126,7 +126,7 @@ export const updatePost = (id, post) => (dispatch, getState) => {
     });
 };
 
-export const deletePost = (id) => (dispatch, getState) => {
+export const deletePost = (id, user) => (dispatch, getState) => {
   axios
     .delete(
       `http://127.0.0.1:8000/posts/post-delete/${id}/`,
@@ -137,6 +137,7 @@ export const deletePost = (id) => (dispatch, getState) => {
       dispatch({
         type: DELETE_POST,
         payload: res.data,
+        user: user,
       });
     })
     .catch((err) => {
