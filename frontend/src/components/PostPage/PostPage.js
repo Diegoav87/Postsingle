@@ -9,11 +9,11 @@ import parse from "html-react-parser";
 
 const PostPage = (props) => {
   const { id } = useParams();
-  const [title, setTitle] = useState(props.post.title);
-  const [description, setDescription] = useState(props.post.description);
-  const [body, setBody] = useState(props.post.body);
-  const [createdAt, setCreatedAt] = useState(props.post.created_at);
-  const [user, setPostUser] = useState(props.post.user);
+  const [title, setTitle] = useState(undefined);
+  const [description, setDescription] = useState(undefined);
+  const [body, setBody] = useState(undefined);
+  const [createdAt, setCreatedAt] = useState(undefined);
+  const [user, setPostUser] = useState(undefined);
 
   useEffect(() => {
     console.log(1);

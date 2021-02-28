@@ -6,7 +6,6 @@ import Navigation from "../Navbar/Navbar";
 import { useParams } from "react-router-dom";
 import Alerts from "../Alerts/Alerts";
 import { useHistory } from "react-router-dom";
-import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -14,9 +13,9 @@ const EditPost = (props) => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [title, setTitle] = useState(props.post.title);
-  const [description, setDescription] = useState(props.post.description);
-  const [body, setBody] = useState(props.post.body);
+  const [title, setTitle] = useState(undefined);
+  const [description, setDescription] = useState(undefined);
+  const [body, setBody] = useState(undefined);
   const [show, setShow] = useState(false);
 
   useEffect(() => {

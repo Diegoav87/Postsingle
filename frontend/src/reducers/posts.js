@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: action.payload,
+        postDetail: {},
       };
     case ADD_POST:
       return {
@@ -58,6 +59,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userPosts: action.payload,
+        postDetail: {},
       };
     case GET_POST:
       return {
