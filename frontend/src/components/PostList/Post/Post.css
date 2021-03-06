@@ -1,0 +1,7 @@
+#card-title {
+  color: black;
+}
+
+#card-title:hover {
+  text-decoration: none;
+}

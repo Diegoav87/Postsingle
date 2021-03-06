@@ -63,21 +63,25 @@ const CommentList = (props) => {
         <h3>Comments</h3>
       </div>
 
-      <form className="mt-2">
-        <textarea
-          className="form-control"
-          placeholder="Add comment..."
-          value={commentText}
-          onChange={commentChange}
-        ></textarea>
-        <button
-          onClick={addComment}
-          type="submit"
-          className="btn btn-primary mt-2"
-        >
-          Add
-        </button>
-      </form>
+      {props.isAuthenticated ? (
+        <form className="mt-2">
+          <textarea
+            className="form-control"
+            placeholder="Add comment..."
+            value={commentText}
+            onChange={commentChange}
+          ></textarea>
+          <button
+            onClick={addComment}
+            type="submit"
+            className="btn btn-primary mt-2"
+          >
+            Add
+          </button>
+        </form>
+      ) : (
+        <p className="text-secondary">Log in in order to add comments.</p>
+      )}
       <hr></hr>
       {commentList}
     </div>
@@ -87,6 +91,7 @@ const CommentList = (props) => {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 

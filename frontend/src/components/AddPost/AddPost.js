@@ -48,6 +48,21 @@ const AddPost = (props) => {
           <CKEditor
             data={body}
             editor={ClassicEditor}
+            config={{
+              toolbar: [
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "|",
+                "link",
+                "bulletedList",
+                "numberedList",
+                "|",
+                "undo",
+                "redo",
+              ],
+            }}
             onChange={(event, editor) => {
               const data = editor.getData();
               setBody(data);

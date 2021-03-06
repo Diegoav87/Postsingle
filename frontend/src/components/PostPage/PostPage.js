@@ -7,6 +7,7 @@ import { getPost } from "../../actions/posts";
 import { Spinner } from "react-bootstrap";
 import parse from "html-react-parser";
 import CommentList from "../CommentList/CommentList";
+import "./PostPage.css";
 
 const PostPage = (props) => {
   const { id } = useParams();
@@ -35,16 +36,16 @@ const PostPage = (props) => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <div className="container mt-4 mb-4">
+        <div className="post-container mt-4 mb-4">
           <h1>{title}</h1>
           <h6 className="text-muted">{description}</h6>
           <p>
             {user}{" "}
-            <span className="text-secondary">
+            <span className="text-secondary ml-2">
               {dateFormat(createdAt, "mmmm dS, yyyy")}
             </span>
           </p>
-          <div>{parse(body)}</div>
+          <div style={{ textAlign: "justify" }}>{parse(body)}</div>
         </div>
       )}
       <CommentList id={id} />

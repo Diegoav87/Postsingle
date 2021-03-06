@@ -3,15 +3,16 @@ import { Card } from "react-bootstrap";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import "./Post.css";
 
 const Post = (props) => {
   return (
     <Card>
       <Card.Body>
         <Link to={`/post/${props.id}`}>
-          <Card.Title>{props.title}</Card.Title>
+          <Card.Title id="card-title">{props.title}</Card.Title>
         </Link>
-        <Card.Text>{props.description}</Card.Text>
+        <Card.Text className="text-secondary">{props.description}</Card.Text>
       </Card.Body>
       <Card.Footer>
         <div className="d-flex justify-content-between">
