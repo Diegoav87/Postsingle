@@ -6,6 +6,7 @@ import dateFormat from "dateformat";
 import { getPost } from "../../actions/posts";
 import { Spinner } from "react-bootstrap";
 import parse from "html-react-parser";
+import CommentList from "../CommentList/CommentList";
 
 const PostPage = (props) => {
   const { id } = useParams();
@@ -16,7 +17,6 @@ const PostPage = (props) => {
   const [user, setPostUser] = useState(undefined);
 
   useEffect(() => {
-    console.log(1);
     props.getPost(id);
     if (props.post.title !== title) {
       setTitle(props.post.title);
@@ -47,6 +47,7 @@ const PostPage = (props) => {
           <div>{parse(body)}</div>
         </div>
       )}
+      <CommentList id={id} />
     </div>
   );
 };

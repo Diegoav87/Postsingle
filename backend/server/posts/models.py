@@ -25,4 +25,4 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'To {self.post} by {self.user}'
+        return self.text

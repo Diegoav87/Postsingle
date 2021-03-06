@@ -1,0 +1,14 @@
+.comment {
+  padding: 20px;
+
+  margin-bottom: 30px;
+  border-bottom: 1px solid lightgray;
+}
+
+.user-data {
+  display: flex;
+}
+
+.date {
+  display: flex;
+}
