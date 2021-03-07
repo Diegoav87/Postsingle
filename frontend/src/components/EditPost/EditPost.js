@@ -66,7 +66,7 @@ const EditPost = (props) => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <div className="mt-4 container">
+        <div className="mt-4 container mb-4">
           <h1>Edit Post</h1>
           <Alerts />
           <Form>

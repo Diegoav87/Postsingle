@@ -14,7 +14,7 @@ const Navigation = (props) => {
   const { isAuthenticated, user } = props.auth;
 
   const userNav = (
-    <Navbar bg="dark" variant="dark">
+    <Navbar style={{ backgroundColor: "#12232E" }} variant="dark">
       <LinkContainer to="/">
         <Navbar.Brand href="#home">Postsingle</Navbar.Brand>
       </LinkContainer>
@@ -30,7 +30,7 @@ const Navigation = (props) => {
   );
 
   const guestNav = (
-    <Navbar bg="dark" variant="dark">
+    <Navbar style={{ backgroundColor: "#12232E" }} variant="dark">
       <LinkContainer to="/">
         <Navbar.Brand href="#home">Postsingle</Navbar.Brand>
       </LinkContainer>

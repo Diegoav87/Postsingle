@@ -12,6 +12,7 @@ import Navigation from "../Navbar/Navbar.js";
 import { connect } from "react-redux";
 import { register } from "../../actions/auth";
 import Alerts from "../Alerts/Alerts";
+import "./Signup.css";
 
 const Signup = (props) => {
   const [username, setUsername] = useState("");
@@ -44,71 +45,67 @@ const Signup = (props) => {
   }
 
   return (
-    <div>
+    <div className="s-wrapper">
       <Navigation />
-      <Container>
-        <Row>
-          <Col md="4">
-            <h1>Sign up</h1>
-            <Alerts />
-            <Form>
-              <Form.Group controlId="usernameId">
-                <Form.Label>User name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="username"
-                  placeholder="Enter user name"
-                  value={username}
-                  onChange={onUsernameChange}
-                />
-                <FormControl.Feedback type="invalid"></FormControl.Feedback>
-              </Form.Group>
+      <div className="signup-block">
+        <h1 style={{ textAlign: "center" }}>Sign up</h1>
+        <Alerts />
+        <Form>
+          <Form.Group controlId="usernameId">
+            <Form.Label>User name</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              placeholder="Enter user name"
+              value={username}
+              onChange={onUsernameChange}
+            />
+            <FormControl.Feedback type="invalid"></FormControl.Feedback>
+          </Form.Group>
 
-              <Form.Group controlId="emailId">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={onEmailChange}
-                />
-                <FormControl.Feedback type="invalid"></FormControl.Feedback>
-              </Form.Group>
+          <Form.Group controlId="emailId">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={onEmailChange}
+            />
+            <FormControl.Feedback type="invalid"></FormControl.Feedback>
+          </Form.Group>
 
-              <Form.Group controlId="passwordId">
-                <Form.Label>Your password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={onPasswordChange}
-                />
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-              </Form.Group>
+          <Form.Group controlId="passwordId">
+            <Form.Label>Your password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={onPasswordChange}
+            />
+            <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+          </Form.Group>
 
-              <Form.Group controlId="passwordId2">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password2"
-                  placeholder="Confirm password"
-                  value={password2}
-                  onChange={onPassword2Change}
-                />
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-              </Form.Group>
-            </Form>
-            <Button color="primary" onClick={onSignupClick}>
-              Sign up
-            </Button>
-            <p className="mt-2">
-              Already have account? <Link to="/login">Login</Link>
-            </p>
-          </Col>
-        </Row>
-      </Container>
+          <Form.Group controlId="passwordId2">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password2"
+              placeholder="Confirm password"
+              value={password2}
+              onChange={onPassword2Change}
+            />
+            <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+          </Form.Group>
+        </Form>
+        <Button color="primary" onClick={onSignupClick}>
+          Sign up
+        </Button>
+        <p className="mt-2">
+          Already have account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </div>
   );
 };

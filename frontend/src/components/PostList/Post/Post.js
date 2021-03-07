@@ -7,7 +7,7 @@ import "./Post.css";
 
 const Post = (props) => {
   return (
-    <Card>
+    <Card className="post-block">
       <Card.Body>
         <Link to={`/post/${props.id}`}>
           <Card.Title id="card-title">{props.title}</Card.Title>

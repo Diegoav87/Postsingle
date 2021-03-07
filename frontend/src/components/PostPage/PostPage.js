@@ -36,19 +36,21 @@ const PostPage = (props) => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <div className="post-container mt-4 mb-4">
-          <h1>{title}</h1>
-          <h6 className="text-muted">{description}</h6>
-          <p>
-            {user}{" "}
-            <span className="text-secondary ml-2">
-              {dateFormat(createdAt, "mmmm dS, yyyy")}
-            </span>
-          </p>
-          <div style={{ textAlign: "justify" }}>{parse(body)}</div>
+        <div>
+          <div className="post-container mt-4 mb-4">
+            <h1>{title}</h1>
+            <h6 className="text-muted">{description}</h6>
+            <p>
+              {user}{" "}
+              <span className="text-secondary ml-2">
+                {dateFormat(createdAt, "mmmm dS, yyyy")}
+              </span>
+            </p>
+            <div style={{ textAlign: "justify" }}>{parse(body)}</div>
+          </div>
+          <CommentList id={id} />
         </div>
       )}
-      <CommentList id={id} />
     </div>
   );
 };
