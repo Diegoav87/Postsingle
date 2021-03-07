@@ -1,1 +1,1 @@
-web: gunicorn  --pythonpath backend server server.wsgi --log-file -
+web: sh -c 'cd backend/server && gunicorn server.wsgi --log-file -'
