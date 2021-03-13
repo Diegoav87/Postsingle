@@ -25,5 +25,5 @@ urlpatterns = [
     path('posts/', include('posts.urls')),
     path('accounts/', include('accounts.urls')),
     url(r'^favicon\.ico$', RedirectView.as_view(
-        url='/build/favicon.ico')),
+        url='/static/images/favicon.ico')),
 ]
