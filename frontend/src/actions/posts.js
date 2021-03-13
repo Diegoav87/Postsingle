@@ -77,7 +77,11 @@ export const getUserPosts = () => (dispatch, getState) => {
 
 export const addPost = (post) => (dispatch, getState) => {
   axios
-    .post(`${config.url}posts/post-create/`, post, tokenConfig(getState))
+    .post(
+      `https://postsingle.herokuapp.com/posts/post-create/`,
+      post,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(createMessage({ postAdded: "Post Added" }));
       dispatch({
@@ -99,7 +103,11 @@ export const addPost = (post) => (dispatch, getState) => {
 
 export const updatePost = (id, post) => (dispatch, getState) => {
   axios
-    .post(`${config.url}posts/post-update/${id}/`, post, tokenConfig(getState))
+    .post(
+      `https://postsingle.herokuapp.com/posts/post-update/${id}/`,
+      post,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(createMessage({ postUpdated: "Post Updated" }));
       dispatch({
@@ -121,7 +129,10 @@ export const updatePost = (id, post) => (dispatch, getState) => {
 
 export const deletePost = (id, user) => (dispatch, getState) => {
   axios
-    .delete(`${config.url}posts/post-delete/${id}/`, tokenConfig(getState))
+    .delete(
+      `https://postsingle.herokuapp.com/posts/post-delete/${id}/`,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch(createMessage({ postDeleted: "Post Deleted" }));
       dispatch({

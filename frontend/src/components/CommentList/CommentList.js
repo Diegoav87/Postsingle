@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Comment from "./Comment/Comment";
 import "./CommentList.css";
 import { connect } from "react-redux";
+import { config } from "../../Constants";
 
 const CommentList = (props) => {
   const [comments, setComments] = useState([]);
@@ -13,7 +14,7 @@ const CommentList = (props) => {
 
   useEffect(() => {
     const fetchComments = () => {
-      fetch(`http://127.0.0.1:8000/posts/post-comments/${props.id}/`)
+      fetch(`${config.url}posts/post-comments/${props.id}/`)
         .then((response) => {
           return response.json();
         })
@@ -35,11 +36,14 @@ const CommentList = (props) => {
       config["Authorization"] = `Token ${token}`;
     }
 
-    fetch(`http://127.0.0.1:8000/posts/comment-create/${props.id}/`, {
-      method: "POST",
-      headers: config,
-      body: JSON.stringify({ text: commentText }),
-    })
+    fetch(
+      `https://postsingle.herokuapp.com/posts/comment-create/${props.id}/`,
+      {
+        method: "POST",
+        headers: config,
+        body: JSON.stringify({ text: commentText }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -44,7 +44,11 @@ export const login = (username, password) => (dispatch) => {
   });
 
   axios
-    .post(`${config.url}accounts/api/auth/login`, body, config)
+    .post(
+      `https://postsingle.herokuapp.com/accounts/api/auth/login`,
+      body,
+      config
+    )
     .then((res) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -61,7 +65,11 @@ export const login = (username, password) => (dispatch) => {
 
 export const logout = () => (dispatch, getState) => {
   axios
-    .post(`${config.url}accounts/api/auth/logout`, null, tokenConfig(getState))
+    .post(
+      `https://postsingle.herokuapp.com/accounts/api/auth/logout`,
+      null,
+      tokenConfig(getState)
+    )
     .then((res) => {
       dispatch({
         type: LOGOUT_SUCCESS,
