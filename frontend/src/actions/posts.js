@@ -10,10 +10,11 @@ import {
 } from "./types";
 import { createMessage } from "./messages";
 import { tokenConfig } from "./auth";
+import { config } from "../Constants";
 
 export const getPosts = () => (dispatch) => {
   axios
-    .get("http://127.0.0.1:8000/posts/")
+    .get(`${config.url}posts/`)
     .then((res) => {
       dispatch({
         type: GET_POSTS,
@@ -34,7 +35,7 @@ export const getPosts = () => (dispatch) => {
 
 export const getPost = (id) => (dispatch) => {
   axios
-    .get(`http://127.0.0.1:8000/posts/post-get/${id}/`)
+    .get(`${config.url}posts/post-get/${id}/`)
     .then((res) => {
       dispatch({
         type: GET_POST,
@@ -55,7 +56,7 @@ export const getPost = (id) => (dispatch) => {
 
 export const getUserPosts = () => (dispatch, getState) => {
   axios
-    .get("http://127.0.0.1:8000/posts/post-user/", tokenConfig(getState))
+    .get(`${config.url}posts/post-user/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_POSTS,
@@ -76,11 +77,7 @@ export const getUserPosts = () => (dispatch, getState) => {
 
 export const addPost = (post) => (dispatch, getState) => {
   axios
-    .post(
-      "http://127.0.0.1:8000/posts/post-create/",
-      post,
-      tokenConfig(getState)
-    )
+    .post(`${config.url}posts/post-create/`, post, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ postAdded: "Post Added" }));
       dispatch({
@@ -102,11 +99,7 @@ export const addPost = (post) => (dispatch, getState) => {
 
 export const updatePost = (id, post) => (dispatch, getState) => {
   axios
-    .post(
-      `http://127.0.0.1:8000/posts/post-update/${id}/`,
-      post,
-      tokenConfig(getState)
-    )
+    .post(`${config.url}posts/post-update/${id}/`, post, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ postUpdated: "Post Updated" }));
       dispatch({
@@ -128,10 +121,7 @@ export const updatePost = (id, post) => (dispatch, getState) => {
 
 export const deletePost = (id, user) => (dispatch, getState) => {
   axios
-    .delete(
-      `http://127.0.0.1:8000/posts/post-delete/${id}/`,
-      tokenConfig(getState)
-    )
+    .delete(`${config.url}posts/post-delete/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ postDeleted: "Post Deleted" }));
       dispatch({

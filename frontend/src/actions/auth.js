@@ -10,12 +10,13 @@ import {
   REGISTER_FAIL,
 } from "./types";
 import { returnErrors } from "./messages";
+import { config } from "../Constants";
 
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
 
   axios
-    .get("http://127.0.0.1:8000/accounts/api/auth/user", tokenConfig(getState))
+    .get(`${config.url}accounts/api/auth/user`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -43,7 +44,7 @@ export const login = (username, password) => (dispatch) => {
   });
 
   axios
-    .post("http://127.0.0.1:8000/accounts/api/auth/login", body, config)
+    .post(`${config.url}accounts/api/auth/login`, body, config)
     .then((res) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -60,11 +61,7 @@ export const login = (username, password) => (dispatch) => {
 
 export const logout = () => (dispatch, getState) => {
   axios
-    .post(
-      "http://127.0.0.1:8000/accounts/api/auth/logout",
-      null,
-      tokenConfig(getState)
-    )
+    .post(`${config.url}accounts/api/auth/logout`, null, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: LOGOUT_SUCCESS,
@@ -93,7 +90,7 @@ export const register = (username, email, password, password2) => (
   });
 
   axios
-    .post("http://127.0.0.1:8000/accounts/api/auth/register", body, config)
+    .post(`${config.url}accounts/api/auth/register`, body, config)
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,

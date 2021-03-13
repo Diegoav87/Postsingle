@@ -156,7 +156,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://postsingle.herokuapp.com'
+    'https://postsingle.herokuapp.com',
+    'https://postsingle.netlify.app/'
 ]
 
 django_heroku.settings(locals())
