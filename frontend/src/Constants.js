@@ -1,8 +1,8 @@
-const prod = {
+const dev = {
   url: "http://127.0.0.1:8000/",
 };
 
-const dev = {
+const prod = {
   url: "https://postsingle.herokuapp.com/",
 };
 
