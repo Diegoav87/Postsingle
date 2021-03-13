@@ -98,7 +98,11 @@ export const register = (username, email, password, password2) => (
   });
 
   axios
-    .post(`${config.url}accounts/api/auth/register`, body, config)
+    .post(
+      `https://postsingle.herokuapp.com/accounts/api/auth/register`,
+      body,
+      config
+    )
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,
