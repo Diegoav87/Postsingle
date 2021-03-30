@@ -1,7 +1,48 @@
-#card-title {
-  color: black;
+.post-title {
+  font-weight: bold;
 }
 
-#card-title:hover {
+.post-block {
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  padding: 1.5rem;
+  color: black;
+  height: 100%;
+}
+
+.post-link:hover {
   text-decoration: none;
+}
+
+.number h2 {
+  color: #e5e5e5;
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.post-owner {
+  display: flex;
+}
+
+.post-owner p {
+  margin-top: 15px;
+  margin-left: 0.3rem;
+}
+
+.post-date {
+  color: #7d7d85;
+}
+
+.number {
+  margin-right: 0.6rem;
+}
+
+.post-info {
+  margin-left: 0.6rem;
+}
+
+.edit-post-link {
+  display: flex;
+  justify-content: space-between;
 }

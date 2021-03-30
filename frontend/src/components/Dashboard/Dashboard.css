@@ -1,0 +1,18 @@
+:root {
+  --darkBlue: #004e64;
+  --lightBlue: #00a5cf;
+  --lightGreen: #9fffcb;
+  --medialGreen: #25a18e;
+  --cozyGreen: #7ae582;
+  --lightGrey: #ededed;
+}
+
+.dashboard-container {
+  background-color: #e5e5e5;
+}
+
+.add-post-title {
+  color: var(--darkBlue);
+  margin-bottom: 1rem;
+  font-weight: bold;
+}

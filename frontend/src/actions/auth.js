@@ -10,13 +10,13 @@ import {
   REGISTER_FAIL,
 } from "./types";
 import { returnErrors } from "./messages";
-import { config } from "../Constants";
+import { configUrl } from "../Constants";
 
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
 
   axios
-    .get(`${config.url}accounts/api/auth/user`, tokenConfig(getState))
+    .get(`${configUrl.url}accounts/api/auth/user`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_LOADED,
@@ -44,11 +44,7 @@ export const login = (username, password) => (dispatch) => {
   });
 
   axios
-    .post(
-      `https://postsingle.herokuapp.com/accounts/api/auth/login`,
-      body,
-      config
-    )
+    .post(`${configUrl.url}accounts/api/auth/login`, body, config)
     .then((res) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -66,7 +62,7 @@ export const login = (username, password) => (dispatch) => {
 export const logout = () => (dispatch, getState) => {
   axios
     .post(
-      `https://postsingle.herokuapp.com/accounts/api/auth/logout`,
+      `${configUrl.url}accounts/api/auth/logout`,
       null,
       tokenConfig(getState)
     )
@@ -98,11 +94,7 @@ export const register = (username, email, password, password2) => (
   });
 
   axios
-    .post(
-      `https://postsingle.herokuapp.com/accounts/api/auth/register`,
-      body,
-      config
-    )
+    .post(`${configUrl.url}accounts/api/auth/register`, body, config)
     .then((res) => {
       dispatch({
         type: REGISTER_SUCCESS,

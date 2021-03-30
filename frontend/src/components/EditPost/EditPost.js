@@ -66,16 +66,16 @@ const EditPost = (props) => {
           <Spinner animation="border" variant="primary" />
         </div>
       ) : (
-        <div className="mt-4 container mb-4">
-          <h1>Edit Post</h1>
+        <div className="mt-4 container pb-4">
+          <h2 className="add-post-title">Editar Artículo</h2>
           <Alerts />
           <Form>
             <Form.Group>
-              <Form.Label>Post Title</Form.Label>
+              <Form.Label>Título</Form.Label>
               <Form.Control onChange={titleChange} type="text" value={title} />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Short Description</Form.Label>
+              <Form.Label>Descripción Corta</Form.Label>
               <Form.Control
                 onChange={desChange}
                 type="text"
@@ -83,7 +83,7 @@ const EditPost = (props) => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Body</Form.Label>
+              <Form.Label>Cuerpo</Form.Label>
               <CKEditor
                 data={body}
                 editor={ClassicEditor}
@@ -109,25 +109,26 @@ const EditPost = (props) => {
               />
             </Form.Group>
             <Button onClick={updateClick} variant="primary" type="submit">
-              Edit
+              Editar
             </Button>
             <Button className="ml-2" variant="danger" onClick={deleteClick}>
-              Delete
+              Borrar
             </Button>
 
             <Modal animation={false} show={show} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Delete Post</Modal.Title>
+                <Modal.Title>Borrar Artículo</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                Deleting a post will permanently remove it from the database.
+                Borrar un artículo lo eliminará permanentemente de la base de
+                datos.
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="success" onClick={handleClose}>
-                  Keep Post
+                  Mantener Artículo
                 </Button>
                 <Button variant="danger" onClick={deletePostConfirm}>
-                  Delete Post
+                  Borrar Artículo
                 </Button>
               </Modal.Footer>
             </Modal>

@@ -8,7 +8,7 @@ const UserPosts = (props) => {
     props.getUserPosts();
   }, []);
 
-  const postList = props.userPosts.map((post) => {
+  const postList = props.userPosts.map((post, index) => {
     return (
       <Post
         title={post.title}
@@ -18,11 +18,17 @@ const UserPosts = (props) => {
         id={post.id}
         description={post.description}
         postUser={post.user}
+        index={index}
       />
     );
   });
 
-  return <div className="list-grid mb-4">{postList}</div>;
+  return (
+    <div className="top-post-list">
+      {postList}
+      <div></div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

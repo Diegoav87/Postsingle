@@ -1,7 +1,30 @@
+:root {
+  --darkBlue: #004e64;
+  --lightBlue: #00a5cf;
+  --lightGreen: #9fffcb;
+  --medialGreen: #25a18e;
+  --cozyGreen: #7ae582;
+  --lightGrey: #ededed;
+}
+
+.post-wrapper {
+  background-color: white;
+}
+
 .post-container {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.post-heading {
+  color: var(--darkBlue);
+  margin-bottom: 1rem;
+}
+
+.user {
+  color: var(--darkBlue);
+  font-weight: bold;
 }
 
 @media (max-width: 769px) {

@@ -6,6 +6,4 @@ const prod = {
   url: "https://postsingle.herokuapp.com/",
 };
 
-console.log(process.env.NODE_ENV);
-
-export const config = process.env.NODE_ENV === "development" ? dev : prod;
+export const configUrl = process.env.NODE_ENV === "development" ? dev : prod;

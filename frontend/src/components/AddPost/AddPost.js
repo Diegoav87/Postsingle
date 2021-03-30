@@ -32,19 +32,19 @@ const AddPost = (props) => {
   };
 
   return (
-    <div className="mt-4">
-      <h1>Add Post</h1>
+    <div className="mt-4 mb-4">
+      <h2 className="add-post-title">Agregar Artículo</h2>
       <Form>
         <Form.Group>
-          <Form.Label>Post Title</Form.Label>
+          <Form.Label>Título</Form.Label>
           <Form.Control onChange={titleChange} type="text" value={title} />
         </Form.Group>
         <Form.Group>
-          <Form.Label>Short Description</Form.Label>
+          <Form.Label>Descripción Corta</Form.Label>
           <Form.Control onChange={desChange} type="text" value={description} />
         </Form.Group>
         <Form.Group>
-          <Form.Label>Body</Form.Label>
+          <Form.Label>Cuerpo</Form.Label>
           <CKEditor
             data={body}
             editor={ClassicEditor}
@@ -69,9 +69,9 @@ const AddPost = (props) => {
             }}
           />
         </Form.Group>
-        <Button onClick={addClick} variant="primary" type="submit">
-          Add
-        </Button>
+        <button onClick={addClick} className="blue-btn">
+          Agregar
+        </button>
       </Form>
     </div>
   );

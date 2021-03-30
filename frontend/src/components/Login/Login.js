@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Form,
-  FormControl,
-} from "react-bootstrap";
 import Navigation from "../Navbar/Navbar";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
@@ -27,7 +19,8 @@ const Login = (props) => {
     setPassword(e.target.value);
   };
 
-  const onLoginClick = () => {
+  const onLoginClick = (e) => {
+    e.preventDefault();
     loginUser();
   };
 
@@ -42,40 +35,40 @@ const Login = (props) => {
   return (
     <div className="wrapper">
       <Navigation />
-      <div className="login-block">
-        <h1 style={{ textAlign: "center" }}>Login</h1>
-        <Alerts />
-        <Form>
-          <Form.Group controlId="usernameId">
-            <Form.Label>User name</Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              placeholder="Enter user name"
-              value={username}
-              onChange={onUsernameChange}
-            />
-            <FormControl.Feedback type="invalid"></FormControl.Feedback>
-          </Form.Group>
 
-          <Form.Group controlId="passwordId">
-            <Form.Label>Your password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={onPasswordChange}
-            />
-            <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-          </Form.Group>
-        </Form>
-        <Button color="primary" type="submit" onClick={onLoginClick}>
-          Login
-        </Button>
-        <p className="mt-2">
-          Don't have account? <Link to="/signup">Signup</Link>
-        </p>
+      <div className="background">
+        <div className="form-container">
+          <h1 className="mb-4">INICIAR SESIÓN</h1>
+          <Alerts />
+          <form method="POST">
+            <div className="mb-4">
+              <label htmlFor="username">Nombre de Usuario</label>
+              <input
+                className="form-input"
+                type="text"
+                name="username"
+                value={username}
+                onChange={onUsernameChange}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password">Contraseña</label>
+              <input
+                className="form-input"
+                type="password"
+                name="password"
+                value={password}
+                onChange={onPasswordChange}
+              />
+            </div>
+            <button className="submit-btn" type="submit" onClick={onLoginClick}>
+              INICIAR SESIÓN
+            </button>
+            <p className="mt-4">
+              No tienes cuenta? <Link to="/signup">Registrarse</Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

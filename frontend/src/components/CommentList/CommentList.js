@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Comment from "./Comment/Comment";
 import "./CommentList.css";
 import { connect } from "react-redux";
-import { config } from "../../Constants";
+import { configUrl } from "../../Constants";
 
 const CommentList = (props) => {
   const [comments, setComments] = useState([]);
@@ -14,7 +14,7 @@ const CommentList = (props) => {
 
   useEffect(() => {
     const fetchComments = () => {
-      fetch(`${config.url}posts/post-comments/${props.id}/`)
+      fetch(`${configUrl.url}posts/post-comments/${props.id}/`)
         .then((response) => {
           return response.json();
         })
@@ -36,14 +36,11 @@ const CommentList = (props) => {
       config["Authorization"] = `Token ${token}`;
     }
 
-    fetch(
-      `https://postsingle.herokuapp.com/posts/comment-create/${props.id}/`,
-      {
-        method: "POST",
-        headers: config,
-        body: JSON.stringify({ text: commentText }),
-      }
-    )
+    fetch(`${configUrl.url}posts/comment-create/${props.id}/`, {
+      method: "POST",
+      headers: config,
+      body: JSON.stringify({ text: commentText }),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -62,9 +59,9 @@ const CommentList = (props) => {
   });
 
   return (
-    <div className="comment-list">
+    <div className="comment-list pb-4">
       <div>
-        <h3>Comments</h3>
+        <h3>Comentarios</h3>
       </div>
 
       {props.isAuthenticated ? (
@@ -75,16 +72,14 @@ const CommentList = (props) => {
             value={commentText}
             onChange={commentChange}
           ></textarea>
-          <button
-            onClick={addComment}
-            type="submit"
-            className="btn btn-primary mt-2"
-          >
-            Add
+          <button onClick={addComment} type="submit" className="blue-btn mt-2">
+            Agregar
           </button>
         </form>
       ) : (
-        <p className="text-secondary">Log in in order to add comments.</p>
+        <p className="text-secondary">
+          Inicia sesión para agregar comentarios.
+        </p>
       )}
       <hr></hr>
       {commentList}

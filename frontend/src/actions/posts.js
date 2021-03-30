@@ -10,11 +10,11 @@ import {
 } from "./types";
 import { createMessage } from "./messages";
 import { tokenConfig } from "./auth";
-import { config } from "../Constants";
+import { configUrl } from "../Constants";
 
 export const getPosts = () => (dispatch) => {
   axios
-    .get(`${config.url}posts/`)
+    .get(`${configUrl.url}posts/`)
     .then((res) => {
       dispatch({
         type: GET_POSTS,
@@ -35,7 +35,7 @@ export const getPosts = () => (dispatch) => {
 
 export const getPost = (id) => (dispatch) => {
   axios
-    .get(`${config.url}posts/post-get/${id}/`)
+    .get(`${configUrl.url}posts/post-get/${id}/`)
     .then((res) => {
       dispatch({
         type: GET_POST,
@@ -56,7 +56,7 @@ export const getPost = (id) => (dispatch) => {
 
 export const getUserPosts = () => (dispatch, getState) => {
   axios
-    .get(`${config.url}posts/post-user/`, tokenConfig(getState))
+    .get(`${configUrl.url}posts/post-user/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: USER_POSTS,
@@ -77,11 +77,7 @@ export const getUserPosts = () => (dispatch, getState) => {
 
 export const addPost = (post) => (dispatch, getState) => {
   axios
-    .post(
-      `https://postsingle.herokuapp.com/posts/post-create/`,
-      post,
-      tokenConfig(getState)
-    )
+    .post(`${configUrl.url}posts/post-create/`, post, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ postAdded: "Post Added" }));
       dispatch({
@@ -104,7 +100,7 @@ export const addPost = (post) => (dispatch, getState) => {
 export const updatePost = (id, post) => (dispatch, getState) => {
   axios
     .post(
-      `https://postsingle.herokuapp.com/posts/post-update/${id}/`,
+      `${configUrl.url}posts/post-update/${id}/`,
       post,
       tokenConfig(getState)
     )
@@ -129,10 +125,7 @@ export const updatePost = (id, post) => (dispatch, getState) => {
 
 export const deletePost = (id, user) => (dispatch, getState) => {
   axios
-    .delete(
-      `https://postsingle.herokuapp.com/posts/post-delete/${id}/`,
-      tokenConfig(getState)
-    )
+    .delete(`${configUrl.url}posts/post-delete/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ postDeleted: "Post Deleted" }));
       dispatch({

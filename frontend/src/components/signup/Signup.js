@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Form,
-  FormControl,
-} from "react-bootstrap";
 import Navigation from "../Navbar/Navbar.js";
 import { connect } from "react-redux";
 import { register } from "../../actions/auth";
 import Alerts from "../Alerts/Alerts";
 import "./Signup.css";
+import "../Login/Login.css";
 
 const Signup = (props) => {
   const [username, setUsername] = useState("");
@@ -36,7 +29,8 @@ const Signup = (props) => {
     setPassword2(e.target.value);
   };
 
-  const onSignupClick = () => {
+  const onSignupClick = (e) => {
+    e.preventDefault();
     props.register(username, email, password, password2);
   };
 
@@ -45,66 +39,71 @@ const Signup = (props) => {
   }
 
   return (
-    <div className="s-wrapper">
+    <div>
       <Navigation />
-      <div className="signup-block">
-        <h1 style={{ textAlign: "center" }}>Sign up</h1>
-        <Alerts />
-        <Form>
-          <Form.Group controlId="usernameId">
-            <Form.Label>User name</Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              placeholder="Enter user name"
-              value={username}
-              onChange={onUsernameChange}
-            />
-            <FormControl.Feedback type="invalid"></FormControl.Feedback>
-          </Form.Group>
 
-          <Form.Group controlId="emailId">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={onEmailChange}
-            />
-            <FormControl.Feedback type="invalid"></FormControl.Feedback>
-          </Form.Group>
+      <div className="background">
+        <div className="register-container">
+          <h1 className="mb-4">REGISTRARSE</h1>
+          <Alerts />
+          <form method="POST">
+            <div className="row mb-4">
+              <div className="col">
+                <label htmlFor="username">Nombre de Usuario</label>
+                <input
+                  className="form-input"
+                  type="text"
+                  value={username}
+                  onChange={onUsernameChange}
+                  name="username"
+                />
+              </div>
+              <div className="col">
+                <label htmlFor="email">Correo</label>
+                <input
+                  className="form-input"
+                  type="email"
+                  value={email}
+                  onChange={onEmailChange}
+                  name="email"
+                />
+              </div>
+            </div>
+            <div className="row mb-4">
+              <div className="col">
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  className="form-input"
+                  type="password"
+                  value={password}
+                  onChange={onPasswordChange}
+                  name="password"
+                />
+              </div>
+              <div className="col">
+                <label htmlFor="password2">Confirmar Contraseña</label>
+                <input
+                  className="form-input"
+                  type="password"
+                  value={password2}
+                  onChange={onPassword2Change}
+                  name="password2"
+                />
+              </div>
+            </div>
 
-          <Form.Group controlId="passwordId">
-            <Form.Label>Your password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={onPasswordChange}
-            />
-            <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="passwordId2">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password2"
-              placeholder="Confirm password"
-              value={password2}
-              onChange={onPassword2Change}
-            />
-            <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-          </Form.Group>
-        </Form>
-        <Button color="primary" onClick={onSignupClick}>
-          Sign up
-        </Button>
-        <p className="mt-2">
-          Already have account? <Link to="/login">Login</Link>
-        </p>
+            <button
+              type="submit"
+              className="submit-btn register-btn"
+              onClick={onSignupClick}
+            >
+              REGISTRARSE
+            </button>
+            <p className="mt-4">
+              Ya tienes una cuenta? <Link to="/login">Iniciar Sesión</Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
