@@ -6,6 +6,7 @@ import { register } from "../../actions/auth";
 import Alerts from "../Alerts/Alerts";
 import "./Signup.css";
 import "../Login/Login.css";
+import Footer from "../Footer/Footer";
 
 const Signup = (props) => {
   const [username, setUsername] = useState("");
@@ -105,6 +106,7 @@ const Signup = (props) => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

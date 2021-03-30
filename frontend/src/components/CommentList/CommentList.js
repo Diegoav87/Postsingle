@@ -68,7 +68,7 @@ const CommentList = (props) => {
         <form className="mt-2">
           <textarea
             className="form-control"
-            placeholder="Add comment..."
+            placeholder="Agregar comentario..."
             value={commentText}
             onChange={commentChange}
           ></textarea>

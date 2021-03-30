@@ -5,6 +5,7 @@ import Navigation from "./Navbar/Navbar.js";
 
 import PostList from "./PostList/PostList.js";
 import Alerts from "./Alerts/Alerts";
+import Footer from "./Footer/Footer";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Navigation />
       <Alerts />
       <PostList />
+      <Footer />
     </div>
   );
 };

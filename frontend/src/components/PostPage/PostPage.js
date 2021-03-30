@@ -8,6 +8,7 @@ import { Spinner } from "react-bootstrap";
 import parse from "html-react-parser";
 import CommentList from "../CommentList/CommentList";
 import "./PostPage.css";
+import Footer from "../Footer/Footer";
 
 const PostPage = (props) => {
   const { id } = useParams();
@@ -51,6 +52,7 @@ const PostPage = (props) => {
           <CommentList id={id} />
         </div>
       )}
+      <Footer />
     </div>
   );
 };

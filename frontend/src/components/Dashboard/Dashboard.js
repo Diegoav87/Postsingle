@@ -5,6 +5,7 @@ import AddPost from "../AddPost/AddPost";
 import Alerts from "../Alerts/Alerts";
 import UserPosts from "./UserPosts/UserPosts";
 import "./Dashboard.css";
+import Footer from "../Footer/Footer";
 
 const Dashboard = () => {
   return (
@@ -18,6 +19,7 @@ const Dashboard = () => {
           <UserPosts />
         </div>
       </Container>
+      <Footer />
     </div>
   );
 };

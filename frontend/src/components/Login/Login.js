@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 import Alerts from "../Alerts/Alerts";
 import "./Login.css";
+import Footer from "../Footer/Footer";
 
 const Login = (props) => {
   const [username, setUsername] = useState("");
@@ -70,6 +71,7 @@ const Login = (props) => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
