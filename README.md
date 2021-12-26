@@ -1,10 +1,11 @@
 # Postsingle
-Postsingle es una simple implementación de un blog en el que puedas crear o leer posts, además de que puedes dejar tu opinión de cualquier post en los comentarios.
+Postsingle is a simple implementation of a blog where you can create or read posts, plus you can leave your opinion of any post in the comments.
 
 ## Backend
-El backend está hecho en Django y se utilizó el Django Rest Framework para desarrollar la API.
+The backend is made in Django, the Django Rest Framework was used to develop the API.
 
 ## Frontend
-El frontend está hecho en React y usa un poco de Redux para manejar algunas partes del estado.
+The frontend is made in React and uses a bit of Redux to handle some parts of the state.
 
+[Live website](https://postsingle.netlify.app/)
 
